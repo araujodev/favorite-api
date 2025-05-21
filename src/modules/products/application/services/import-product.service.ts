@@ -38,7 +38,7 @@ export class ImportProductService implements OnModuleInit {
 
       productsRetrieved.forEach(
         async (product: FakeStoreProductResponseDto) => {
-          this.logger.log(`Importing: ${product.id} - ${product.title} `);
+          this.logger.log(`Try Importing: ${product.id} - ${product.title} `);
 
           const existingProduct = await this.productRepository.getByExternalId(
             product.id,

@@ -1,8 +1,10 @@
+import { FavoriteEntity } from 'src/modules/favorites/domain/entities/favorite.entity';
 import {
   BaseEntity,
   Column,
   Entity,
   Index,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -33,4 +35,7 @@ export class CustomerEntity extends BaseEntity {
   })
   @Index('idx_customers_document')
   document?: string;
+
+  @OneToMany(() => FavoriteEntity, (favorite) => favorite.customer)
+  favorites: FavoriteEntity[];
 }

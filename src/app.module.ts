@@ -5,6 +5,7 @@ import { typeOrmConfig } from './infra/database/type-orm.config';
 import { CustomerModule } from './modules/customers/customer.module';
 import { ProductModule } from './modules/products/product.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { FavoriteModule } from './modules/favorites/favorite.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     ScheduleModule.forRoot(),
     CustomerModule,
     ProductModule,
+    FavoriteModule,
   ],
   controllers: [],
   providers: [],

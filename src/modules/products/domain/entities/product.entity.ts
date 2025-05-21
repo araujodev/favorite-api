@@ -1,8 +1,10 @@
+import { FavoriteEntity } from 'src/modules/favorites/domain/entities/favorite.entity';
 import {
   BaseEntity,
   Column,
   Entity,
   Index,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -47,4 +49,7 @@ export class ProductEntity extends BaseEntity {
     type: 'int',
   })
   reviewCount?: number;
+
+  @OneToMany(() => FavoriteEntity, (favorite) => favorite.product)
+  favorites: FavoriteEntity[];
 }
