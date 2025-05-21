@@ -12,7 +12,7 @@ import { CreateCustomerUseCase } from 'src/modules/customers/application/usecase
 import { ResponseCreateCustomerMapper } from './mappers/response-create-customer.mapper';
 import { CreateCustomerResponseDto } from './dto/create-customer-response.dto';
 import { CreateCustomerRequestDto } from './dto/create-customer-request.dto';
-import { ResponseError } from 'src/infra/exception/http-exception-impl/base.error';
+import { ResponseError } from 'src/common/exception/types/base.error';
 
 @ApiBasicAuth()
 @ApiTags('Customers')

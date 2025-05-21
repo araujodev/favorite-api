@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
-import { HttpExceptionFilter } from './infra/exception/http-exception.filter';
+import { HttpExceptionFilter } from './common/exception/http-exception.filter';
 
 export const createDocument = function (app) {
   const config = new DocumentBuilder()

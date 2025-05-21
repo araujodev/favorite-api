@@ -6,7 +6,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { ApiBasicAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ResponseError } from 'src/infra/exception/http-exception-impl/base.error';
+import { ResponseError } from 'src/common/exception/types/base.error';
 import { GetProductsUseCase } from 'src/modules/products/application/usecases/get-products/get-products.usecase';
 import { ResponseProductListMapper } from './mappers/response-product-list.mapper';
 import { ProductListResponseDto } from './dto/product-list-response.dto';

@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { ApiBasicAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateFavoriteProductToCustomerRequest } from './dto/create-favorite-product-to-customer-request.dto';
-import { ResponseError } from 'src/infra/exception/http-exception-impl/base.error';
+import { ResponseError } from 'src/common/exception/types/base.error';
 import { RequestCreateFavoriteMapper } from './mappers/request-create-favorite.mapper';
 import { CreateFavoriteUseCase } from 'src/modules/favorites/application/usecases/create/create-favorite.usecase';
 import { ResponseCreateFavoriteMapper } from './mappers/response-create-favorite.mapper';

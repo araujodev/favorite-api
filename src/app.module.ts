@@ -6,6 +6,9 @@ import { CustomerModule } from './modules/customers/customer.module';
 import { ProductModule } from './modules/products/product.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { FavoriteModule } from './modules/favorites/favorite.module';
+import { AuthModule } from './common/auth/auth.module';
+import { APP_GUARD } from '@nestjs/core';
+import { BasicAuthGuard } from './common/auth/guards/basic-auth.guard';
 
 @Module({
   imports: [
@@ -19,11 +22,17 @@ import { FavoriteModule } from './modules/favorites/favorite.module';
       inject: [ConfigService],
     }),
     ScheduleModule.forRoot(),
+    AuthModule,
     CustomerModule,
     ProductModule,
     FavoriteModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: BasicAuthGuard,
+    },
+  ],
 })
 export class AppModule {}
