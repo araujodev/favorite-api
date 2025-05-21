@@ -1,4 +1,10 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  Index,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('customers')
 export class CustomerEntity extends BaseEntity {
@@ -15,6 +21,7 @@ export class CustomerEntity extends BaseEntity {
     length: 150,
     unique: true,
   })
+  @Index('idx_customers_email')
   email: string;
 
   @Column({
@@ -24,5 +31,6 @@ export class CustomerEntity extends BaseEntity {
     length: 11,
     unique: true,
   })
+  @Index('idx_customers_document')
   document?: string;
 }

@@ -3,6 +3,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from './infra/database/type-orm.config';
 import { CustomerModule } from './modules/customers/customer.module';
+import { ProductModule } from './modules/products/product.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -15,7 +17,9 @@ import { CustomerModule } from './modules/customers/customer.module';
         typeOrmConfig(configService),
       inject: [ConfigService],
     }),
+    ScheduleModule.forRoot(),
     CustomerModule,
+    ProductModule,
   ],
   controllers: [],
   providers: [],
