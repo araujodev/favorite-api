@@ -54,4 +54,13 @@ export class CustomerService {
       throw error;
     }
   }
+
+  async update(customer: CustomerModel): Promise<CustomerModel> {
+    try {
+      return await this.customerRepository.update(customer);
+    } catch (error) {
+      this.logger.error(error);
+      throw error;
+    }
+  }
 }

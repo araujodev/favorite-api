@@ -14,6 +14,11 @@ export class CustomerMapper {
 
   static toPersistence(model: CustomerModel): CustomerEntity {
     const entity = new CustomerEntity();
+
+    if (model.id) {
+      entity.id = model.id;
+    }
+
     entity.name = model.name;
     entity.email = model.email;
     entity.document = model.document;

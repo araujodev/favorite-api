@@ -16,6 +16,12 @@ export class CustomerRepository {
     return CustomerMapper.toDomain(createdCustomer);
   }
 
+  async update(customer: CustomerModel): Promise<CustomerModel> {
+    const toPersist = CustomerMapper.toPersistence(customer);
+    await this.customerRepository.update(toPersist.id, toPersist);
+    return customer;
+  }
+
   async findAll(): Promise<CustomerModel[]> {
     const entities = await this.customerRepository.find();
 

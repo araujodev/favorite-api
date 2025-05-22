@@ -8,6 +8,7 @@ import {
   HttpStatus,
   Logger,
   Param,
+  Patch,
   Post,
 } from '@nestjs/common';
 import { ApiBasicAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -24,6 +25,10 @@ import { GetCustomersUseCase } from 'src/modules/customers/application/usecases/
 import { ResponseGetCustomersMapper } from './mappers/response-get-customers.mapper';
 import { GetCustomersResponseDto } from './dto/get-customers-response.dto';
 import { RemoveCustomerByIdUseCase } from 'src/modules/customers/application/usecases/remove-by-id/remove-customer-by-id.usecase';
+import { UpdateCustomerRequestDto } from './dto/update-customer-request.dto';
+import { RequestUpdateCustomerMapper } from './mappers/request-update-customer.mapper';
+import { UpdateCustomerUseCase } from 'src/modules/customers/application/usecases/update/update-customer.usecase';
+import { ResponseUpdateCustomerMapper } from './mappers/response-update-customer.mapper';
 
 @ApiBasicAuth()
 @ApiTags('Customers')
@@ -36,6 +41,7 @@ export class CustomersController {
     private readonly getCustomerByIdUseCase: GetCustomerByIdUseCase,
     private readonly getCustomersUseCase: GetCustomersUseCase,
     private readonly removeCustomerByIdUseCase: RemoveCustomerByIdUseCase,
+    private readonly updateCustomerUseCase: UpdateCustomerUseCase,
   ) {
     this.logger = new Logger(CustomersController.name);
   }
@@ -136,6 +142,35 @@ export class CustomersController {
       this.logger.error(error);
       throw new HttpException(
         `Failed to remove customer`,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Update customer by id',
+    type: GetCustomerResponseDto,
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Error while update customer',
+    type: ResponseError,
+  })
+  @Patch(':customerId')
+  async update(
+    @Param('customerId') customerId: number,
+    @Body() dto: UpdateCustomerRequestDto,
+  ): Promise<GetCustomerResponseDto> {
+    try {
+      this.logger.log(`Prepare to update customer by id ${customerId}`);
+      const input = RequestUpdateCustomerMapper.toDomain(dto, customerId);
+      const result = await this.updateCustomerUseCase.execute(input);
+      return ResponseUpdateCustomerMapper.toResponse(result);
+    } catch (error) {
+      this.logger.error(error);
+      throw new HttpException(
+        `Failed to update customer`,
         HttpStatus.BAD_REQUEST,
       );
     }

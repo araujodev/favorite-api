@@ -8,6 +8,7 @@ import { CustomerRepository } from './infra/db/repositories/customer.repository'
 import { GetCustomerByIdUseCase } from './application/usecases/get-by-id/get-customer-by-id.usecase';
 import { GetCustomersUseCase } from './application/usecases/get-all/get-customers.usecase';
 import { RemoveCustomerByIdUseCase } from './application/usecases/remove-by-id/remove-customer-by-id.usecase';
+import { UpdateCustomerUseCase } from './application/usecases/update/update-customer.usecase';
 
 @Module({
   imports: [TypeOrmModule.forFeature([CustomerEntity])],
@@ -17,6 +18,7 @@ import { RemoveCustomerByIdUseCase } from './application/usecases/remove-by-id/r
     GetCustomerByIdUseCase,
     GetCustomersUseCase,
     RemoveCustomerByIdUseCase,
+    UpdateCustomerUseCase,
     CustomerService,
     CustomerRepository,
   ],
