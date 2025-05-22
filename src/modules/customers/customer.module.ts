@@ -6,6 +6,7 @@ import { CreateCustomerUseCase } from './application/usecases/create/create-cust
 import { CustomerService } from './application/services/customer.service';
 import { CustomerRepository } from './infra/db/repositories/customer.repository';
 import { GetCustomerByIdUseCase } from './application/usecases/get-by-id/get-customer-by-id.usecase';
+import { GetCustomersUseCase } from './application/usecases/get-all/get-customers.usecase';
 
 @Module({
   imports: [TypeOrmModule.forFeature([CustomerEntity])],
@@ -13,6 +14,7 @@ import { GetCustomerByIdUseCase } from './application/usecases/get-by-id/get-cus
   providers: [
     CreateCustomerUseCase,
     GetCustomerByIdUseCase,
+    GetCustomersUseCase,
     CustomerService,
     CustomerRepository,
   ],

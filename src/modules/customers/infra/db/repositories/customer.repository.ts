@@ -16,6 +16,16 @@ export class CustomerRepository {
     return CustomerMapper.toDomain(createdCustomer);
   }
 
+  async findAll(): Promise<CustomerModel[]> {
+    const entities = await this.customerRepository.find();
+
+    if (entities.length === 0) {
+      return [];
+    }
+
+    return entities.map((entity) => CustomerMapper.toDomain(entity));
+  }
+
   async findByEmail(email: string): Promise<CustomerModel | null> {
     const entity = await this.customerRepository.findOneBy({ email });
 

@@ -18,6 +18,9 @@ import { ResponseError } from 'src/common/exception/types/base.error';
 import { GetCustomerByIdUseCase } from 'src/modules/customers/application/usecases/get-by-id/get-customer-by-id.usecase';
 import { ResponseGetCustomerMapper } from './mappers/response-get-customer.mapper';
 import { GetCustomerResponseDto } from './dto/get-customer-response.dto';
+import { GetCustomersUseCase } from 'src/modules/customers/application/usecases/get-all/get-customers.usecase';
+import { ResponseGetCustomersMapper } from './mappers/response-get-customers.mapper';
+import { GetCustomersResponseDto } from './dto/get-customers-response.dto';
 
 @ApiBasicAuth()
 @ApiTags('Customers')
@@ -28,6 +31,7 @@ export class CustomersController {
   constructor(
     private readonly createCustomerUseCase: CreateCustomerUseCase,
     private readonly getCustomerByIdUseCase: GetCustomerByIdUseCase,
+    private readonly getCustomersUseCase: GetCustomersUseCase,
   ) {
     this.logger = new Logger(CustomersController.name);
   }
@@ -81,6 +85,31 @@ export class CustomersController {
     } catch (error) {
       this.logger.error(error);
       throw new HttpException(`Failed to get customer`, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Get customers',
+    type: GetCustomersResponseDto,
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Error while get customers',
+    type: ResponseError,
+  })
+  @Get()
+  async getAll(): Promise<GetCustomersResponseDto> {
+    try {
+      this.logger.log(`Prepare to get customer all customers`);
+      const result = await this.getCustomersUseCase.execute();
+      return ResponseGetCustomersMapper.toResponse(result);
+    } catch (error) {
+      this.logger.error(error);
+      throw new HttpException(
+        `Failed to get customers`,
+        HttpStatus.BAD_REQUEST,
+      );
     }
   }
 }
