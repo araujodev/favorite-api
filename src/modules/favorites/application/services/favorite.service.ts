@@ -10,6 +10,30 @@ export class FavoriteService {
     this.logger = new Logger(FavoriteService.name);
   }
 
+  async getFavoriteByProductIdAndCustomerId(
+    productId: number,
+    customerId: number,
+  ): Promise<FavoriteModel> {
+    try {
+      const favorite =
+        await this.favoriteRepository.findByProductIdAndCustomerId(
+          productId,
+          customerId,
+        );
+
+      if (!favorite) {
+        throw new Error(
+          `Dont retrive favorite for Product ${productId} and Customer ${customerId}`,
+        );
+      }
+
+      return favorite;
+    } catch (error) {
+      this.logger.error(error);
+      throw error;
+    }
+  }
+
   async getFavoritesFromCustomer(customerId: number): Promise<FavoriteModel[]> {
     try {
       return await this.favoriteRepository.getFavoritesByCustomerId(customerId);
