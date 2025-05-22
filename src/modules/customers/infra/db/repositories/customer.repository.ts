@@ -45,4 +45,8 @@ export class CustomerRepository {
 
     return CustomerMapper.toDomain(entity);
   }
+
+  async removeById(customerId: number): Promise<void> {
+    await this.customerRepository.delete({ id: customerId });
+  }
 }

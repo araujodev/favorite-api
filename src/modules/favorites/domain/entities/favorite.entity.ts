@@ -16,7 +16,9 @@ export class FavoriteEntity extends BaseEntity {
   @PrimaryGeneratedColumn({ name: 'id' })
   id: number;
 
-  @ManyToOne(() => CustomerEntity, (customer) => customer.favorites)
+  @ManyToOne(() => CustomerEntity, (customer) => customer.favorites, {
+    onDelete: 'CASCADE',
+  })
   @Index('idx_favorites_customer_id')
   @JoinColumn({ name: 'customer_id' })
   customer: CustomerEntity;

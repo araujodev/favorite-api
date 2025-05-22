@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  HttpCode,
   HttpException,
   HttpStatus,
   Logger,
@@ -21,6 +23,7 @@ import { GetCustomerResponseDto } from './dto/get-customer-response.dto';
 import { GetCustomersUseCase } from 'src/modules/customers/application/usecases/get-all/get-customers.usecase';
 import { ResponseGetCustomersMapper } from './mappers/response-get-customers.mapper';
 import { GetCustomersResponseDto } from './dto/get-customers-response.dto';
+import { RemoveCustomerByIdUseCase } from 'src/modules/customers/application/usecases/remove-by-id/remove-customer-by-id.usecase';
 
 @ApiBasicAuth()
 @ApiTags('Customers')
@@ -32,6 +35,7 @@ export class CustomersController {
     private readonly createCustomerUseCase: CreateCustomerUseCase,
     private readonly getCustomerByIdUseCase: GetCustomerByIdUseCase,
     private readonly getCustomersUseCase: GetCustomersUseCase,
+    private readonly removeCustomerByIdUseCase: RemoveCustomerByIdUseCase,
   ) {
     this.logger = new Logger(CustomersController.name);
   }
@@ -108,6 +112,30 @@ export class CustomersController {
       this.logger.error(error);
       throw new HttpException(
         `Failed to get customers`,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: 'Remove customer by id',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Error while remove customer',
+    type: ResponseError,
+  })
+  @Delete(':customerId')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async remove(@Param('customerId') customerId: number): Promise<void> {
+    try {
+      this.logger.log(`Prepare to remove customer by id ${customerId}`);
+      await this.removeCustomerByIdUseCase.execute(customerId);
+    } catch (error) {
+      this.logger.error(error);
+      throw new HttpException(
+        `Failed to remove customer`,
         HttpStatus.BAD_REQUEST,
       );
     }

@@ -10,6 +10,15 @@ export class CustomerService {
     this.logger = new Logger(CustomerService.name);
   }
 
+  async removeById(customerId: number): Promise<void> {
+    try {
+      return await this.customerRepository.removeById(customerId);
+    } catch (error) {
+      this.logger.error(error);
+      throw error;
+    }
+  }
+
   async getCustomers(): Promise<CustomerModel[]> {
     try {
       return await this.customerRepository.findAll();
