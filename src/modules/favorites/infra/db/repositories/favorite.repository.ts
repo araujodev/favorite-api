@@ -10,6 +10,15 @@ export class FavoriteRepository {
     private readonly favoriteRepository: Repository<FavoriteEntity>,
   ) {}
 
+  async getFavoritesByCustomerId(customerId: number): Promise<FavoriteModel[]> {
+    const entities = await this.favoriteRepository.find({
+      where: { customer: { id: customerId } },
+      relations: ['product', 'customer'],
+    });
+
+    return entities.map((entity) => FavoriteMapper.toDomain(entity));
+  }
+
   async save(favorite: FavoriteModel): Promise<FavoriteModel> {
     const toPersist = FavoriteMapper.toPersistence(favorite);
     const createdFavorite = await this.favoriteRepository.save(toPersist);
