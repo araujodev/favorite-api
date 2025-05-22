@@ -17,6 +17,7 @@ import { CreateCustomerRequestDto } from './dto/create-customer-request.dto';
 import { ResponseError } from 'src/common/exception/types/base.error';
 import { GetCustomerByIdUseCase } from 'src/modules/customers/application/usecases/get-by-id/get-customer-by-id.usecase';
 import { ResponseGetCustomerMapper } from './mappers/response-get-customer.mapper';
+import { GetCustomerResponseDto } from './dto/get-customer-response.dto';
 
 @ApiBasicAuth()
 @ApiTags('Customers')
@@ -62,7 +63,7 @@ export class CustomersController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Get customer by id',
-    type: CreateCustomerResponseDto,
+    type: GetCustomerResponseDto,
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -72,7 +73,7 @@ export class CustomersController {
   @Get(':customerId')
   async get(
     @Param('customerId') customerId: number,
-  ): Promise<CreateCustomerResponseDto> {
+  ): Promise<GetCustomerResponseDto> {
     try {
       this.logger.log(`Prepare to get customer by id ${customerId}`);
       const result = await this.getCustomerByIdUseCase.execute(customerId);
