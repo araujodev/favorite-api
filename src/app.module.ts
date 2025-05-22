@@ -9,11 +9,20 @@ import { FavoriteModule } from './modules/favorites/favorite.module';
 import { AuthModule } from './common/auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { BasicAuthGuard } from './common/auth/guards/basic-auth.guard';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 60000,
+          limit: 1000000,
+        },
+      ],
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

@@ -1,0 +1,456 @@
+{
+	"info": {
+		"_postman_id": "f31f44c0-7721-4055-b6cf-b49a3a3bb7ed",
+		"name": "Favorite-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6630459",
+		"_collection_link": "https://www.postman.com/bold-flare-83041/workspace/favorites/collection/6630459-f31f44c0-7721-4055-b6cf-b49a3a3bb7ed?action=share&source=collection_link&creator=6630459"
+	},
+	"item": [
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "Create Customer",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{vault:passwd}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "5f2320d2-f10e-445b-b88a-61c59c9a94b6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Leandro Araujo\",\n    \"email\": \"leandro.souara.web2@gmail.com\",\n    \"document\": \"04155519195\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer by Id",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{vault:passwd}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "5f2320d2-f10e-445b-b88a-61c59c9a94b6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/customers/:customerId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "14"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Customer by Id",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{vault:passwd}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "5f2320d2-f10e-445b-b88a-61c59c9a94b6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/customers/:customerId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "14"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer by id",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{vault:passwd}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "5f2320d2-f10e-445b-b88a-61c59c9a94b6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Rodrigo Ajala 2\",\n    \"email\": \"rodrigo@test.com\",\n    \"document\": \"11122233356\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/customers/:customerId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "14"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customers",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{vault:passwd}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "5f2320d2-f10e-445b-b88a-61c59c9a94b6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Retrieve Available Products",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{vault:authorization-password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "5f2320d2-f10e-445b-b88a-61c59c9a94b6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Favorites",
+			"item": [
+				{
+					"name": "Favorite new Product to Customer",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{vault:passwd}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "5f2320d2-f10e-445b-b88a-61c59c9a94b6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productId\": 270\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/customers/:customerId/favorites",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"customers",
+								":customerId",
+								"favorites"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "12"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Favorite List from Customer Id",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{vault:passwd}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "5f2320d2-f10e-445b-b88a-61c59c9a94b6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/customers/:customerId/favorites",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"customers",
+								":customerId",
+								"favorites"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "12"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Favorite Product from Customer Id",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{vault:passwd}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "5f2320d2-f10e-445b-b88a-61c59c9a94b6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/customers/:customerId/favorites/:productId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"customers",
+								":customerId",
+								"favorites",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "12"
+								},
+								{
+									"key": "productId",
+									"value": "267"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Favorite Product from Customer Id",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{vault:passwd}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "5f2320d2-f10e-445b-b88a-61c59c9a94b6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/customers/:customerId/favorites/:productId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"customers",
+								":customerId",
+								"favorites",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "12"
+								},
+								{
+									"key": "productId",
+									"value": "268"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

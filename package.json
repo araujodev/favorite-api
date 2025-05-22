@@ -1,8 +1,8 @@
 {
   "name": "favorite-list-api",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Favorite Api List",
+  "author": "Leandro Araujo",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -33,6 +33,7 @@
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/schedule": "^6.0.0",
     "@nestjs/swagger": "^11.2.0",
+    "@nestjs/throttler": "^6.4.0",
     "@nestjs/typeorm": "^11.0.0",
     "axios": "^1.9.0",
     "class-transformer": "^0.5.1",
