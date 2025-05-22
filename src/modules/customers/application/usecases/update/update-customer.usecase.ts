@@ -25,7 +25,7 @@ export class UpdateCustomerUseCase {
           input.email,
         );
 
-        if (existentCustomer) {
+        if (existentCustomer && existentCustomer.id !== customer.id) {
           throw new Error('Customer already exists');
         }
       }

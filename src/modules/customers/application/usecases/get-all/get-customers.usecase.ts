@@ -12,13 +12,7 @@ export class GetCustomersUseCase {
 
   async execute(): Promise<CustomerModel[]> {
     try {
-      const customers = await this.customerService.getCustomers();
-
-      if (customers.length === 0) {
-        throw new Error('No customers found');
-      }
-
-      return customers;
+      return await this.customerService.getCustomers();
     } catch (error) {
       this.logger.error(error);
       throw error;
