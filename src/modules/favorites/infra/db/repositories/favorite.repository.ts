@@ -10,6 +10,10 @@ export class FavoriteRepository {
     private readonly favoriteRepository: Repository<FavoriteEntity>,
   ) {}
 
+  async removeById(favoriteId: number): Promise<void> {
+    await this.favoriteRepository.delete({ id: favoriteId });
+  }
+
   async getFavoritesByCustomerId(customerId: number): Promise<FavoriteModel[]> {
     const entities = await this.favoriteRepository.find({
       where: { customer: { id: customerId } },

@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  HttpCode,
   HttpException,
   HttpStatus,
   Logger,
@@ -21,6 +23,7 @@ import { GetFavoritesResponseDto } from './dto/get-favorites-response.dto';
 import { GetFavoriteByProductAndCustomerUseCase } from 'src/modules/favorites/application/usecases/get-favorite-by-product-and-customer/get-favorite-by-product-and-customer.usecase';
 import { ResponseGetFavoriteMapper } from './mappers/response-get-favorite.mapper';
 import { GetFavoriteResponseDto } from './dto/get-favorite-response.dto';
+import { RemoveFavoriteByProductAndCustomerUseCase } from 'src/modules/favorites/application/usecases/remove-by-product-and-customer/remove-favorite-by-product-and-customer.usecase';
 
 @ApiBasicAuth()
 @ApiTags('Customer Favorite Products')
@@ -32,6 +35,7 @@ export class FavoritesController {
     private readonly createFavoriteUseCase: CreateFavoriteUseCase,
     private readonly getFavoriteUseCase: GetFavoriteListUseCase,
     private readonly getFavoriteByProductAndCustomerUseCase: GetFavoriteByProductAndCustomerUseCase,
+    private readonly removeFavoriteByProductAndCustomerUseCase: RemoveFavoriteByProductAndCustomerUseCase,
   ) {
     this.logger = new Logger(FavoritesController.name);
   }
@@ -124,6 +128,38 @@ export class FavoritesController {
       this.logger.error(error);
       throw new HttpException(
         `Failed to get favorite product to customer`,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: 'Remove favorite product of customer',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Error while remove favorite product of customer',
+    type: ResponseError,
+  })
+  @Delete('/:customerId/favorites/:productId')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async removeFavorite(
+    @Param('customerId') customerId: number,
+    @Param('productId') productId: number,
+  ): Promise<void> {
+    try {
+      this.logger.log(
+        `Prepare to remove favorite product ${productId} to customer ${customerId}`,
+      );
+      await this.removeFavoriteByProductAndCustomerUseCase.execute(
+        productId,
+        customerId,
+      );
+    } catch (error) {
+      this.logger.error(error);
+      throw new HttpException(
+        `Failed to remove favorite product to customer`,
         HttpStatus.BAD_REQUEST,
       );
     }

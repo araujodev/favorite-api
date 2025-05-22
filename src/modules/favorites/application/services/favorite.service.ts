@@ -10,6 +10,15 @@ export class FavoriteService {
     this.logger = new Logger(FavoriteService.name);
   }
 
+  async removeById(favoriteId: number): Promise<void> {
+    try {
+      await this.favoriteRepository.removeById(favoriteId);
+    } catch (error) {
+      this.logger.error(error);
+      throw error;
+    }
+  }
+
   async getFavoriteByProductIdAndCustomerId(
     productId: number,
     customerId: number,

@@ -7,6 +7,7 @@ import { FavoriteService } from './application/services/favorite.service';
 import { FavoriteRepository } from './infra/db/repositories/favorite.repository';
 import { GetFavoriteListUseCase } from './application/usecases/get-favorites-list/get-favorite-list.usecase';
 import { GetFavoriteByProductAndCustomerUseCase } from './application/usecases/get-favorite-by-product-and-customer/get-favorite-by-product-and-customer.usecase';
+import { RemoveFavoriteByProductAndCustomerUseCase } from './application/usecases/remove-by-product-and-customer/remove-favorite-by-product-and-customer.usecase';
 
 @Module({
   imports: [TypeOrmModule.forFeature([FavoriteEntity])],
@@ -15,6 +16,7 @@ import { GetFavoriteByProductAndCustomerUseCase } from './application/usecases/g
     CreateFavoriteUseCase,
     GetFavoriteListUseCase,
     GetFavoriteByProductAndCustomerUseCase,
+    RemoveFavoriteByProductAndCustomerUseCase,
     FavoriteService,
     FavoriteRepository,
   ],
