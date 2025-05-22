@@ -10,6 +10,15 @@ export class CustomerService {
     this.logger = new Logger(CustomerService.name);
   }
 
+  async getCustomerById(customerId: number): Promise<CustomerModel | null> {
+    try {
+      return await this.customerRepository.findById(customerId);
+    } catch (error) {
+      this.logger.error(error);
+      throw error;
+    }
+  }
+
   async getCustomerByEmail(email: string): Promise<CustomerModel | null> {
     try {
       return await this.customerRepository.findByEmail(email);

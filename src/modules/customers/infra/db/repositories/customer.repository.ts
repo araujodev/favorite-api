@@ -25,4 +25,14 @@ export class CustomerRepository {
 
     return CustomerMapper.toDomain(entity);
   }
+
+  async findById(customerId: number): Promise<CustomerModel | null> {
+    const entity = await this.customerRepository.findOneBy({ id: customerId });
+
+    if (!entity) {
+      return null;
+    }
+
+    return CustomerMapper.toDomain(entity);
+  }
 }

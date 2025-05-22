@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Get,
   HttpException,
   HttpStatus,
   Logger,
+  Param,
   Post,
 } from '@nestjs/common';
 import { ApiBasicAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -13,6 +15,8 @@ import { ResponseCreateCustomerMapper } from './mappers/response-create-customer
 import { CreateCustomerResponseDto } from './dto/create-customer-response.dto';
 import { CreateCustomerRequestDto } from './dto/create-customer-request.dto';
 import { ResponseError } from 'src/common/exception/types/base.error';
+import { GetCustomerByIdUseCase } from 'src/modules/customers/application/usecases/get-by-id/get-customer-by-id.usecase';
+import { ResponseGetCustomerMapper } from './mappers/response-get-customer.mapper';
 
 @ApiBasicAuth()
 @ApiTags('Customers')
@@ -20,7 +24,10 @@ import { ResponseError } from 'src/common/exception/types/base.error';
 export class CustomersController {
   private readonly logger: Logger;
 
-  constructor(private readonly createCustomerUseCase: CreateCustomerUseCase) {
+  constructor(
+    private readonly createCustomerUseCase: CreateCustomerUseCase,
+    private readonly getCustomerByIdUseCase: GetCustomerByIdUseCase,
+  ) {
     this.logger = new Logger(CustomersController.name);
   }
 
@@ -49,6 +56,30 @@ export class CustomersController {
         `Failed to create customer`,
         HttpStatus.BAD_REQUEST,
       );
+    }
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Get customer by id',
+    type: CreateCustomerResponseDto,
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Error while get customer',
+    type: ResponseError,
+  })
+  @Get(':customerId')
+  async get(
+    @Param('customerId') customerId: number,
+  ): Promise<CreateCustomerResponseDto> {
+    try {
+      this.logger.log(`Prepare to get customer by id ${customerId}`);
+      const result = await this.getCustomerByIdUseCase.execute(customerId);
+      return ResponseGetCustomerMapper.toResponse(result);
+    } catch (error) {
+      this.logger.error(error);
+      throw new HttpException(`Failed to get customer`, HttpStatus.BAD_REQUEST);
     }
   }
 }
